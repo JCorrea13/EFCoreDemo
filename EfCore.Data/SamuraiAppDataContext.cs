@@ -10,6 +10,7 @@ namespace EfCore.Data
         public DbSet<Clan> Clans { get; set; }
         public DbSet<Quote> Quotes { get; set; }
         public DbSet<Samurai> Samurais { get; set; }
+        public DbSet<Battle> Battles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -22,6 +23,7 @@ namespace EfCore.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<SamuraiBattle>().HasKey(x => new { x.SamuraiId, x.BattleId });
+            modelBuilder.Entity<Horse>().ToTable("Horses");
         }
 
     }
