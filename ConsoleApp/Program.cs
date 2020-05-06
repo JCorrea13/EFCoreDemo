@@ -11,7 +11,6 @@ namespace ConsoleApp
         private static SamuraiContext context = new SamuraiContext();
         static async Task Main(string[] args)
         {
-            context.Database.EnsureCreated();
             await GetSamurais("Before Add:");
             await AddSamurai();
             await GetSamurais("After Add:");
