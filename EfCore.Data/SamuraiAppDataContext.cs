@@ -1,55 +1,28 @@
 ﻿using EfCore.Model;
+using EFCore.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace EfCore.Data
 {
     public partial class SamuraiAppDataContext : DbContext
     {
-        public SamuraiAppDataContext()
-        {
-        }
 
-        public SamuraiAppDataContext(DbContextOptions<SamuraiAppDataContext> options)
-            : base(options)
-        {
-        }
-
-        public virtual DbSet<Clan> Clans { get; set; }
-        public virtual DbSet<Quote> Quotes { get; set; }
-        public virtual DbSet<Samurai> Samurais { get; set; }
+        public DbSet<Clan> Clans { get; set; }
+        public DbSet<Quote> Quotes { get; set; }
+        public DbSet<Samurai> Samurais { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 optionsBuilder.UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiAppData");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Quote>(entity =>
-            {
-                entity.HasIndex(e => e.SamuraiId);
-
-                entity.HasOne(d => d.Samurai)
-                    .WithMany(p => p.Quotes)
-                    .HasForeignKey(d => d.SamuraiId);
-            });
-
-            modelBuilder.Entity<Samurai>(entity =>
-            {
-                entity.HasIndex(e => e.ClanId);
-
-                entity.HasOne(d => d.Clan)
-                    .WithMany(p => p.Samurais)
-                    .HasForeignKey(d => d.ClanId);
-            });
-
-            OnModelCreatingPartial(modelBuilder);
+            modelBuilder.Entity<SamuraiBattle>().HasKey(x => new { x.SamuraiId, x.BattleId });
         }
 
-        partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
