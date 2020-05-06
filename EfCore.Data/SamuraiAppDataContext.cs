@@ -1,6 +1,5 @@
-﻿using System;
+﻿using EfCore.Model;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace EfCore.Data
 {
