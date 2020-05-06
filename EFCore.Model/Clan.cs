@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EfCore.Data
+namespace EfCore.Model
 {
     public partial class Clan
     {
