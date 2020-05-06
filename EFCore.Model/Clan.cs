@@ -3,16 +3,16 @@ using System.Collections.Generic;
 
 namespace EfCore.Data
 {
-    public partial class Clans
+    public partial class Clan
     {
-        public Clans()
+        public Clan()
         {
-            Samurais = new HashSet<Samurais>();
+            Samurais = new HashSet<Samurai>();
         }
 
         public int Id { get; set; }
         public string ClanName { get; set; }
 
-        public virtual ICollection<Samurais> Samurais { get; set; }
+        public virtual ICollection<Samurai> Samurais { get; set; }
     }
 }

@@ -15,9 +15,9 @@ namespace EfCore.Data
         {
         }
 
-        public virtual DbSet<Clans> Clans { get; set; }
-        public virtual DbSet<Quotes> Quotes { get; set; }
-        public virtual DbSet<Samurais> Samurais { get; set; }
+        public virtual DbSet<Clan> Clans { get; set; }
+        public virtual DbSet<Quote> Quotes { get; set; }
+        public virtual DbSet<Samurai> Samurais { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -30,7 +30,7 @@ namespace EfCore.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Quotes>(entity =>
+            modelBuilder.Entity<Quote>(entity =>
             {
                 entity.HasIndex(e => e.SamuraiId);
 
@@ -39,7 +39,7 @@ namespace EfCore.Data
                     .HasForeignKey(d => d.SamuraiId);
             });
 
-            modelBuilder.Entity<Samurais>(entity =>
+            modelBuilder.Entity<Samurai>(entity =>
             {
                 entity.HasIndex(e => e.ClanId);
 
