@@ -14,6 +14,10 @@ namespace ConsoleApp
             await PrintSamurais("Before Insert ..");
             await InsertVariousTypes();
             await PrintSamurais("After Insert ..");
+
+            var samurai = Context.Samurais.Find(2);
+            Console.Write("Id 2: ");
+            Console.WriteLine(samurai.Name);
             Console.ReadKey();
         }
 
