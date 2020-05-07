@@ -28,6 +28,7 @@ namespace EfCore.Data
             {
                 optionsBuilder
                     .UseLoggerFactory(ConsoleLoggerFactory)
+                    .EnableSensitiveDataLogging()
                     .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiAppData");
             }
         }
