@@ -12,7 +12,7 @@ namespace ConsoleApp
         public static async Task Main(string[] args)
         {
             await PrintSamurais("Before Insert ..");
-            await InsertVariousTypes();
+            await QueryAndUpdate_Disconnected();
             await PrintSamurais("After Insert ..");
 
             var samurai = Context.Samurais.Find(2);
@@ -52,6 +52,28 @@ namespace ConsoleApp
             {
                 Console.WriteLine($"Samurai: {samurai.Name}");
             }
+        }
+
+        public static async Task InsertBattle()
+        {
+            await Context.Battles.AddAsync(new Battle
+            {
+                Name = "Battle of Okehazama",
+                StartDate =  DateTime.Now.AddDays(-1),
+                EndDate = DateTime.Now
+            });
+
+            await Context.SaveChangesAsync();
+        }
+
+        public static async Task QueryAndUpdate_Disconnected()
+        {
+            var battle = await Context.Battles.AsNoTracking().FirstOrDefaultAsync();
+            battle.EndDate = new DateTime(1560, 06, 30);
+
+            using var newContext = new SamuraiAppDataContext();
+            newContext.Battles.Update(battle);
+            await newContext.SaveChangesAsync();
         }
     }
 }
