@@ -12,13 +12,22 @@ namespace ConsoleApp
         public static async Task Main(string[] args)
         {
             await PrintSamurais("Before Insert ..");
-            
-            var samurai = new Samurai { Name = "Marisol" };
-            Context.Samurais.Add(samurai);
-            await Context.SaveChangesAsync();
-            
+            await InsertMultipleSamurais();
             await PrintSamurais("After Insert ..");
             Console.ReadKey();
+        }
+
+        public static async Task InsertMultipleSamurais()
+        {
+            Samurai[] samurais = {
+                new Samurai { Name = "Rojo" },
+                new Samurai { Name = "Azul" },
+                new Samurai { Name = "Amarillo" },
+                new Samurai { Name = "Verde" },
+            };
+
+            Context.Samurais.AddRange(samurais);
+            await Context.SaveChangesAsync();
         }
 
         public static async Task PrintSamurais(string text)
