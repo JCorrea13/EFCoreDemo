@@ -13,7 +13,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await LoadDataExplicity();
+            await GetManyToMany();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -98,6 +98,16 @@ namespace ConsoleApp
             await _context.Entry(samurai).Reference(x => x.Horse).LoadAsync();
 
             //NOTE: use the respective method depending on the kind of data to retrive
+        }
+
+        public static async Task GetManyToMany()
+        {
+            await _context.Samurais.Select(x => new
+            {
+                x.Name,
+                Battles = x.SamuraiBattles.Select(y => y.Battle),
+            })
+            .ToListAsync();
         }
     }
 }
