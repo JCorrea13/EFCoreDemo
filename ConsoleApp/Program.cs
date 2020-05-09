@@ -13,7 +13,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await ProjectingRelatedData();
+            await LoadDataExplicity();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -88,5 +88,16 @@ namespace ConsoleApp
                 .Select(x => new { x.Name, x.Quotes.Count, x.Horse } as object)
                 .ToListAsync();
 
+        public static async Task LoadDataExplicity()
+        {
+            var samurai = _context.Samurais.Find(13);
+            //Loading a collection use Collection
+            await _context.Entry(samurai).Collection(x => x.Quotes).LoadAsync();
+
+            //Loading a sigle entry use Reference
+            await _context.Entry(samurai).Reference(x => x.Horse).LoadAsync();
+
+            //NOTE: use the respective method depending on the kind of data to retrive
+        }
     }
 }
