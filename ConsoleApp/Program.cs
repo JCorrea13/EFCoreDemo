@@ -2,6 +2,7 @@
 using EfCore.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace ConsoleApp
@@ -12,7 +13,7 @@ namespace ConsoleApp
         public static async Task Main(string[] args)
         {
             await PrintSamurais("Before Insert ..");
-            await QueryAndUpdate_Disconnected();
+            await InsertingRelatedData();
             await PrintSamurais("After Insert ..");
 
             var samurai = Context.Samurais.Find(2);
@@ -74,6 +75,21 @@ namespace ConsoleApp
             using var newContext = new SamuraiAppDataContext();
             newContext.Battles.Update(battle);
             await newContext.SaveChangesAsync();
+        }
+
+        public static async Task InsertingRelatedData()
+        {
+            var samurai = new Samurai
+            {
+                Name = "Kambei Shimada",
+                Quotes = new List<Quote>
+                {
+                    new Quote { Text = "I've come to save you" }
+                }
+            };
+
+            Context.Samurais.Add(samurai);
+            await Context.SaveChangesAsync();
         }
     }
 }
