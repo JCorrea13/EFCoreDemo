@@ -9,17 +9,10 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        private static SamuraiAppDataContext Context = new SamuraiAppDataContext();
+        private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await PrintSamurais("Before Insert ..");
-            await InsertingRelatedData();
-            await PrintSamurais("After Insert ..");
-
-            var samurai = Context.Samurais.Find(2);
-            Console.Write("Id 2: ");
-            Console.WriteLine(samurai.Name);
-            Console.ReadKey();
+            
         }
 
         public static async Task InsertMultipleSamurais()
@@ -31,22 +24,20 @@ namespace ConsoleApp
                 new Samurai { Name = "Verde" },
             };
 
-            Context.Samurais.AddRange(samurais);
-            await Context.SaveChangesAsync();
+            _context.Samurais.AddRange(samurais);
+            await _context.SaveChangesAsync();
         }
-
         public static async Task InsertVariousTypes()
         {
             var samurai = new Samurai { Name = "Rojo" };
             var clan = new Clan { ClanName = "Square" };
 
-            Context.AddRange(samurai, clan);
-            await Context.SaveChangesAsync();
+            _context.AddRange(samurai, clan);
+            await _context.SaveChangesAsync();
         }
-
         public static async Task PrintSamurais(string text)
         {
-            var samurais = await Context.Samurais.ToListAsync();
+            var samurais = await _context.Samurais.ToListAsync();
 
             Console.WriteLine($"Samurais - {text}");
             foreach (var samurai in samurais)
@@ -54,29 +45,26 @@ namespace ConsoleApp
                 Console.WriteLine($"Samurai: {samurai.Name}");
             }
         }
-
         public static async Task InsertBattle()
         {
-            await Context.Battles.AddAsync(new Battle
+            await _context.Battles.AddAsync(new Battle
             {
                 Name = "Battle of Okehazama",
                 StartDate =  DateTime.Now.AddDays(-1),
                 EndDate = DateTime.Now
             });
 
-            await Context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
-
         public static async Task QueryAndUpdate_Disconnected()
         {
-            var battle = await Context.Battles.AsNoTracking().FirstOrDefaultAsync();
+            var battle = await _context.Battles.AsNoTracking().FirstOrDefaultAsync();
             battle.EndDate = new DateTime(1560, 06, 30);
 
             using var newContext = new SamuraiAppDataContext();
             newContext.Battles.Update(battle);
             await newContext.SaveChangesAsync();
         }
-
         public static async Task InsertingRelatedData()
         {
             var samurai = new Samurai
@@ -88,8 +76,9 @@ namespace ConsoleApp
                 }
             };
 
-            Context.Samurais.Add(samurai);
-            await Context.SaveChangesAsync();
+            _context.Samurais.Add(samurai);
+            await _context.SaveChangesAsync();
         }
+        
     }
 }
