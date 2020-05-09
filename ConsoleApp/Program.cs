@@ -12,7 +12,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            
+            await EagerLoadSamuraiWithQuotes();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -50,7 +50,7 @@ namespace ConsoleApp
             await _context.Battles.AddAsync(new Battle
             {
                 Name = "Battle of Okehazama",
-                StartDate =  DateTime.Now.AddDays(-1),
+                StartDate = DateTime.Now.AddDays(-1),
                 EndDate = DateTime.Now
             });
 
@@ -79,6 +79,8 @@ namespace ConsoleApp
             _context.Samurais.Add(samurai);
             await _context.SaveChangesAsync();
         }
-        
+        public static Task<List<Samurai>> EagerLoadSamuraiWithQuotes() =>
+         _context.Samurais.Include(x => x.Quotes).ToListAsync();
+
     }
 }
