@@ -3,6 +3,7 @@ using EfCore.Model;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConsoleApp
@@ -12,7 +13,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await EagerLoadSamuraiWithQuotes();
+            await ProjectingRelatedData();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -81,6 +82,11 @@ namespace ConsoleApp
         }
         public static Task<List<Samurai>> EagerLoadSamuraiWithQuotes() =>
          _context.Samurais.Include(x => x.Quotes).ToListAsync();
+
+        public static Task<List<object>> ProjectingRelatedData() =>
+            _context.Samurais
+                .Select(x => new { x.Name, x.Quotes.Count, x.Horse } as object)
+                .ToListAsync();
 
     }
 }
