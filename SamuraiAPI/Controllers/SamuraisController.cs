@@ -25,7 +25,7 @@ namespace SamuraiAPI.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Samurai>>> GetSamurais()
         {
-            return await _context.Samurais.ToListAsync();
+            return await _context.Samurais.Include(x => x.Horse).ToListAsync();
         }
 
         // GET: api/Samurais/5
