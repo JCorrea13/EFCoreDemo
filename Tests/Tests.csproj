@@ -13,4 +13,9 @@
     <PackageReference Include="coverlet.collector" Version="1.0.1" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\EfCore.Data\EfCore.Data.csproj" />
+    <ProjectReference Include="..\EFCore.Model\EFCore.Model.csproj" />
+  </ItemGroup>
+
 </Project>

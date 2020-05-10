@@ -10,7 +10,7 @@ namespace ConsoleApp
 {
     internal class Program
     {
-        private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
+        private static SamuraiTestDataContext _context = new SamuraiTestDataContext();
         public static async Task Main(string[] args)
         {
             var affectedLines = await QueryDatabaseStoreProcedure(5);
@@ -63,7 +63,7 @@ namespace ConsoleApp
             var battle = await _context.Battles.AsNoTracking().FirstOrDefaultAsync();
             battle.EndDate = new DateTime(1560, 06, 30);
 
-            using var newContext = new SamuraiAppDataContext();
+            using var newContext = new SamuraiTestDataContext();
             newContext.Battles.Update(battle);
             await newContext.SaveChangesAsync();
         }
