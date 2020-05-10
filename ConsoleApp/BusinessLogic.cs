@@ -30,5 +30,11 @@ namespace ConsoleApp
             _context.Samurais.AddRange(samuraiList);
             return _context.SaveChangesAsync();
         }
+
+        public Task<int> InsertNewSamurai(Samurai samurai)
+        {
+            _context.Samurais.Add(samurai);
+            return _context.SaveChangesAsync();
+        }
     }
 }
