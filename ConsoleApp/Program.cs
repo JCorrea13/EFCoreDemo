@@ -13,7 +13,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await GetManyToMany();
+            await QueryUsingRawSql();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -109,5 +109,10 @@ namespace ConsoleApp
             })
             .ToListAsync();
         }
+
+        public static Task<List<Samurai>> QueryUsingRawSql() =>
+            _context.Samurais.FromSqlRaw("SELECT * FROM Samurais WHERE 1 = 1")
+                .Where(x => x.Name.Length > 5)
+                .Include(x => x.Quotes).ToListAsync();
     }
 }
