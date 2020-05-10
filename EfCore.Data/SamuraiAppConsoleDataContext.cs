@@ -3,7 +3,7 @@ using EfCore.Model;
 
 namespace EfCore.Data
 {
-    public partial class SamuraiTestDataContext : DbContext
+    public partial class SamuraiAppConsoleDataContext : DbContext
     {
         public DbSet<Clan> Clans { get; set; }
         public DbSet<Quote> Quotes { get; set; }
@@ -14,7 +14,7 @@ namespace EfCore.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiTestData");
+                .UseSqlServer("Data Source = (localdb)\\MSSQLLocalDB; Initial Catalog = SamuraiAppData");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -10,6 +10,7 @@ namespace Tests
         public void CanInsertSamuraiIntoDatabase()
         {
             using var context = new SamuraiTestDataContext();
+            
         }
     }
 }
