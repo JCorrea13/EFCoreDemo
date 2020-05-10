@@ -28,7 +28,7 @@ namespace SamuraiAPI
         {
             services.AddControllers();
             services.AddDbContext<SamuraiAppDataContext>(opt =>
-                opt.UseSqlServer(Configuration.GetConnectionString("connectionString"))
+                opt.UseSqlServer(Configuration.GetConnectionString("SamuraiConnection"))
                     .EnableSensitiveDataLogging());
         }
 
