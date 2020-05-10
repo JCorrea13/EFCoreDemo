@@ -13,22 +13,17 @@ namespace ConsoleApp
         private static SamuraiAppConsoleDataContext _context = new SamuraiAppConsoleDataContext();
         public static async Task Main(string[] args)
         {
-            var affectedLines = await QueryDatabaseStoreProcedure(5);
-
+            await InsertMultipleSamurais();
         }
 
-        public static async Task InsertMultipleSamurais()
+        public async static Task InsertMultipleSamurais()
         {
-            Samurai[] samurais = {
-                new Samurai { Name = "Rojo" },
-                new Samurai { Name = "Azul" },
-                new Samurai { Name = "Amarillo" },
-                new Samurai { Name = "Verde" },
-            };
+            var _bizData = new BusinessLogic();
+            var samuraiNames = new string[] { "Red", "Blue", "Orange", "White" };
 
-            _context.Samurais.AddRange(samurais);
-            await _context.SaveChangesAsync();
+            await _bizData.AddMultipleSamurais(samuraiNames);
         }
+
         public static async Task InsertVariousTypes()
         {
             var samurai = new Samurai { Name = "Rojo" };
