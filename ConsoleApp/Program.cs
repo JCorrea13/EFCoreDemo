@@ -13,7 +13,8 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await QueryStoreProcedure();
+            var affectedLines = await QueryDatabaseStoreProcedure(5);
+
         }
 
         public static async Task InsertMultipleSamurais()
@@ -128,5 +129,9 @@ namespace ConsoleApp
             return _context.Samurais.FromSqlRaw("EXEC dbo.SamuraisWhoSaidAWord {0}", text)
                 .ToListAsync();
         }
+
+        public static Task<int> QueryDatabaseStoreProcedure(int id) =>
+            _context.Database.ExecuteSqlInterpolatedAsync($"EXEC dbo.DeleteQuotesForSamurai {id}");
+        
     }
 }
