@@ -1,0 +1,23 @@
+#GET
+http://localhost:49477/api/Samurais
+
+#POST
+POST http://localhost:49477/api/Samurais
+content-type: application/json
+
+{
+    "name": "Orange",
+    "clanId": 1
+}
+
+#PUT
+PUT http://localhost:49477/api/Samurais/1
+content-type: application/json
+
+{
+    "id": 1,
+    "name": "Manuel Correa"
+}
+
+#DELETE
+DELETE http://localhost:49477/api/Samurais/12
