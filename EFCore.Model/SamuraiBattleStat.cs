@@ -1,4 +1,4 @@
-﻿namespace EFCore.Model
+﻿namespace EfCore.Model
 {
     public class SamuraiBattleStat
     {

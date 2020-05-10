@@ -1,6 +1,4 @@
-﻿using EfCore.Model;
-
-namespace EFCore.Model
+﻿namespace EfCore.Model
 {
     public class SamuraiBattle
     {

@@ -1,7 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using EfCore.Model;
-using EFCore.Model;
 
 namespace EfCore.Data
 {
