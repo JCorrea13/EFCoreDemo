@@ -1,7 +1,6 @@
-﻿using EFCore.Model;
+﻿using EfCore.Model;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace EfCore.Model
 {

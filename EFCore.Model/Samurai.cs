@@ -1,4 +1,4 @@
-﻿using EFCore.Model;
+﻿using EfCore.Model;
 using System.Collections.Generic;
 
 namespace EfCore.Model
