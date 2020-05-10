@@ -13,7 +13,7 @@ namespace ConsoleApp
         private static SamuraiAppDataContext _context = new SamuraiAppDataContext();
         public static async Task Main(string[] args)
         {
-            await QueryUsingSqlInterpolated();
+            await QueryStoreProcedure();
         }
 
         public static async Task InsertMultipleSamurais()
@@ -120,6 +120,13 @@ namespace ConsoleApp
             return _context.Samurais.FromSqlInterpolated($"SELECT * FROM Samurais WHERE Name = {name}")
                 .Where(x => x.Name.Length > 5)
                 .Include(x => x.Quotes).ToListAsync();
+        }
+
+        public static Task<List<Samurai>> QueryStoreProcedure()
+        {
+            var text = "Happy";
+            return _context.Samurais.FromSqlRaw("EXEC dbo.SamuraisWhoSaidAWord {0}", text)
+                .ToListAsync();
         }
     }
 }
